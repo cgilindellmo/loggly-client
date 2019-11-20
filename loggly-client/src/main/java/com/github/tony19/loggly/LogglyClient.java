@@ -116,7 +116,7 @@ public class LogglyClient implements ILogglyClient {
     public void log(String message, final Callback callback) {
         if (message == null) return;
 
-        Call call = loggly.log(token, tags, message);
+        Call<LogglyResponse> call = loggly.log(token, tags, message);
         call.enqueue(new retrofit2.Callback<LogglyResponse>() {
             @Override
             public void onResponse(Call<LogglyResponse> call, Response<LogglyResponse> response) {
@@ -169,12 +169,10 @@ public class LogglyClient implements ILogglyClient {
     public void logBulk(Collection<String> messages, final Callback callback) {
         if (messages == null) return;
 
-
-
         String parcel = joinStrings(messages);
         if (parcel.isEmpty()) return;
 
-        Call call = loggly.logBulk(token, tags, parcel);
+        Call<LogglyResponse> call = loggly.logBulk(token, tags, parcel);
         call.enqueue(new retrofit2.Callback<LogglyResponse>() {
             @Override
             public void onResponse(Call<LogglyResponse> call, Response<LogglyResponse> response) {
